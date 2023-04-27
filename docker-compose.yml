@@ -8,12 +8,9 @@ services:
       target: node
       dockerfile: Dockerfile
     volumes:
-      - .:/usr/src/app
+      - .:/home/node/app
     ports:
       - ${APP_PORT}:${APP_PORT}
-      - 9229:9229
-    command: >
-      sh -c "npm run start:dev"
     env_file: .env
     networks:
       - app-network
