@@ -3,7 +3,6 @@ import { sign } from 'jsonwebtoken';
 
 import { ENCRYPT_PROVIDER } from '@config/constants/providers.constants';
 import { USER_REPOSITORY } from '@config/constants/repositories.constants';
-import env from '@config/env';
 
 import { IEncryptProvider } from '@shared/providers/EncryptProvider/encryptProvider.interface';
 
@@ -11,7 +10,7 @@ import { LoginRequestDTO, LoginResponseDTO } from '@modules/authentication/dto/l
 import { IUserRepository } from '@modules/users/repositories/userRepository.interface';
 
 @Injectable()
-export class AuthService {
+export class AuthenticationService {
   constructor(
     @Inject(USER_REPOSITORY)
     private readonly userRepository: IUserRepository,
@@ -20,7 +19,7 @@ export class AuthService {
   ) {}
 
   async execute({ email, password }: LoginRequestDTO): Promise<LoginResponseDTO> {
-    const user = await this.userRepository.findOne({ email });
+    const user = await this.userRepository.findByEmail(email);
 
     if (!user) {
       throw new NotFoundException('user-not-found');
@@ -31,9 +30,9 @@ export class AuthService {
     if (!passwordMatched) {
       throw new UnauthorizedException('invalid-password');
     }
-    const token = sign({}, env().jwt.token, {
+    const token = sign({}, 'testas', {
       subject: user.id,
-      expiresIn: env().jwt.expiresIn,
+      expiresIn: '2002s',
     });
 
     return { user, token };

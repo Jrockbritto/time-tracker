@@ -10,12 +10,12 @@ import env from '@config/env';
 import { LoginRequestDTO } from '@modules/authentication/dto/login.dto';
 import { User } from '@modules/users/entity/User.entity';
 
-import { AuthService } from './authentication.service';
+import { AuthenticationService } from './authentication.service';
 
 @Controller(AUTHENTICATION.toLowerCase())
 @ApiTags(AUTHENTICATION)
-export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+export class AuthenticationController {
+  constructor(private readonly authService: AuthenticationService) {}
   @ApiCreatedResponse({ type: User })
   @Post('login')
   async handler(@Body() dto: LoginRequestDTO, @Res({ passthrough: true }) response: Response) {
