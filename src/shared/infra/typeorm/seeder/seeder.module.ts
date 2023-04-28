@@ -7,6 +7,7 @@ import { datasourceOptions } from '@config/typeorm';
 
 import { BcryptProvider } from '@shared/providers/EncryptProvider/implementations/bcrypt.provider';
 
+import { Time } from '@modules/times/entity/Time.entity';
 import { User } from '@modules/users/entity/User.entity';
 import { UserRepository } from '@modules/users/repositories/implementations/user.repository';
 
@@ -15,7 +16,7 @@ import { Seeder } from './seed';
 @Module({
   imports: [
     TypeOrmModule.forRoot({ ...datasourceOptions, autoLoadEntities: true }),
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Time]),
   ],
   providers: [
     Logger,

@@ -15,6 +15,10 @@ export class ListTimeService {
     private readonly timeRepository: TimeRespository,
   ) {}
   async execute({ id }: ListTimeDTO) {
+    let hasToday = false;
+
+    const today = format(new Date(), 'dd/MM/yyyy');
+
     const times = await this.timeRepository.find({ userId: id });
     const serializedTimes = times.reduce((acc, { time }) => {
       const timeKey = format(time, 'dd/MM/yyyy');
@@ -43,7 +47,8 @@ export class ListTimeService {
         journey,
       };
 
-      if (timeKey === format(new Date(), 'dd/MM/yyyy')) {
+      if (timeKey === today) {
+        hasToday = true;
         return {
           ...response,
           firstOfJourney: !Boolean(timeArray.length % 2),
@@ -51,6 +56,16 @@ export class ListTimeService {
       }
       return response;
     });
+
+    if (!hasToday) {
+      datesAndTimes.push({
+        date: today,
+        time: intervalToDuration({ start: 0, end: 0 }),
+        timeArray: [],
+        journey: 1,
+        firstOfJourney: true,
+      });
+    }
 
     return datesAndTimes.reverse();
   }

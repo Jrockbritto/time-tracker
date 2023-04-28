@@ -3,6 +3,7 @@ import { sign } from 'jsonwebtoken';
 
 import { ENCRYPT_PROVIDER } from '@config/constants/providers.constants';
 import { USER_REPOSITORY } from '@config/constants/repositories.constants';
+import env from '@config/env';
 
 import { IEncryptProvider } from '@shared/providers/EncryptProvider/encryptProvider.interface';
 
@@ -30,9 +31,9 @@ export class AuthenticationService {
     if (!passwordMatched) {
       throw new UnauthorizedException('invalid-password');
     }
-    const token = sign({}, 'testas', {
+    const token = sign({}, env().jwt.token, {
       subject: user.id,
-      expiresIn: '2002s',
+      expiresIn: env().jwt.expiresIn,
     });
 
     return { user, token };
