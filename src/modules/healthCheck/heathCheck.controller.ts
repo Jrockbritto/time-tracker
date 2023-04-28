@@ -9,7 +9,6 @@ import { JwtAuthGuard } from '@modules/authentication/guards/jwtAuth.guard';
 @ApiTags(HEALTH_CHECK)
 export class HealthCheckController {
   @Get()
-  @HttpCode(HttpStatus.NO_CONTENT)
   @UseGuards(JwtAuthGuard)
   handler() {
     return null;
