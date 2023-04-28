@@ -11,8 +11,8 @@ import { BcryptProvider } from '@shared/providers/EncryptProvider/implementation
 import { User } from '@modules/users/entity/User.entity';
 import { UserRepository } from '@modules/users/repositories/implementations/user.repository';
 
-import { AuthController } from './contexts/login/authentication.controller';
-import { AuthService } from './contexts/login/authentication.service';
+import { AuthenticationController } from './contexts/login/authentication.controller';
+import { AuthenticationService } from './contexts/login/authentication.service';
 import { JwtCookiesStrategy } from './strategies/jwtCookie.strategy';
 
 @Module({
@@ -29,12 +29,12 @@ import { JwtCookiesStrategy } from './strategies/jwtCookie.strategy';
     }),
     TypeOrmModule.forFeature([User]),
   ],
-  controllers: [AuthController],
+  controllers: [AuthenticationController],
   providers: [
-    AuthService,
+    AuthenticationService,
     JwtCookiesStrategy,
     { provide: USER_REPOSITORY, useClass: UserRepository },
     { provide: ENCRYPT_PROVIDER, useClass: BcryptProvider },
   ],
 })
-export class AuthModule {}
+export class AutenticationModule {}

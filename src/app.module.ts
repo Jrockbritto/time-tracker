@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { datasourceOptions } from '@config/typeorm';
 
-import { AuthModule } from '@modules/authentication/auth.module';
+import { AutenticationModule } from '@modules/authentication/authentication.module';
 import { HealthCheckModule } from '@modules/healthCheck/healthCheck.module';
 import { TimeModule } from '@modules/times/time.module';
 import { UserModule } from '@modules/users/user.module';
@@ -13,7 +13,7 @@ import { UserModule } from '@modules/users/user.module';
     TypeOrmModule.forRoot({ ...datasourceOptions, autoLoadEntities: true }),
     UserModule,
     HealthCheckModule,
-    AuthModule,
+    AutenticationModule,
     TimeModule,
   ],
 })
