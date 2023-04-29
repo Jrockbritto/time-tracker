@@ -1,6 +1,7 @@
 import { subMinutes } from 'date-fns';
 
+import { TIME_ZONE_OFFSET } from '@config/constants/constants.constants';
+
 export const removeTimeZone = (time: Date) => {
-  const timeOffset = time.getTimezoneOffset();
-  return subMinutes(time, timeOffset);
+  return subMinutes(time, TIME_ZONE_OFFSET);
 };
