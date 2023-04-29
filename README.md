@@ -29,20 +29,18 @@
 ## Installation
 
 ```bash
-$ yarn install
+#building services
+$ docker-compose up
 ```
 
-## Running the app
+## Database Setting up
 
 ```bash
-# development
-$ yarn run start
+# run migrations
+$ npm run migration:run
 
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
+# seed database with users
+$ npm run seed
 ```
 
 ## Test

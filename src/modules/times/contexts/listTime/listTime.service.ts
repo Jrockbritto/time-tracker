@@ -17,7 +17,7 @@ export class ListTimeService {
   async execute({ id }: ListTimeDTO) {
     let hasToday = false;
 
-    const today = format(new Date(), 'dd/MM/yyyy');
+    const today = format(removeTimeZone(new Date()), 'dd/MM/yyyy');
 
     const times = await this.timeRepository.find({ userId: id });
     const serializedTimes = times.reduce((acc, { time }) => {
