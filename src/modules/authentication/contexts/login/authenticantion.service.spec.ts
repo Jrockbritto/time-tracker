@@ -1,4 +1,4 @@
-import { NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { UnauthorizedException } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 
 import { ENCRYPT_PROVIDER } from '@config/constants/providers.constants';
@@ -72,13 +72,13 @@ describe('AuthenticationService', () => {
     ).rejects.toBeInstanceOf(UnauthorizedException);
   });
 
-  it('should return a NotFoundException when user does not exist', async () => {
+  it('should return a UnauthorizedException when user does not exist', async () => {
     const user = { email: 'user@example.com', password: 'password' };
 
     const { email, password } = user;
 
     await expect(authenticationService.execute({ email, password })).rejects.toBeInstanceOf(
-      NotFoundException,
+      UnauthorizedException,
     );
   });
 });

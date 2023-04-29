@@ -10,6 +10,11 @@ export const datasourceOptions: DataSourceOptions = {
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
+  ssl: process.env.DB_SSL
+    ? {
+        rejectUnauthorized: false,
+      }
+    : false,
   entities: ['dist/modules/**/entity/*.entity.js'],
   migrations: ['dist/shared/infra/typeorm/migrations/*{.ts,.js}'],
   migrationsTableName: 'history',

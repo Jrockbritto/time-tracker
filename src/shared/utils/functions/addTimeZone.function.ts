@@ -1,6 +1,7 @@
 import { addMinutes } from 'date-fns';
 
+import { TIME_ZONE_OFFSET } from '@config/constants/constants.constants';
+
 export const addTimeZone = (time: Date) => {
-  const timeOffset = time.getTimezoneOffset();
-  return addMinutes(time, timeOffset);
+  return addMinutes(time, TIME_ZONE_OFFSET);
 };

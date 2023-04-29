@@ -12,9 +12,15 @@ dotenv.config();
 async function bootstrap() {
   const logger = new Logger();
 
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    cors: {
+      origin: true,
+      allowedHeaders: ['Content-Type', 'Access-Control-Allow-Credentials'],
+      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+      credentials: true,
+    },
+  });
 
-  app.enableCors({ credentials: true, origin: true });
   app.use(cookieParser());
   app.use(helmet());
 

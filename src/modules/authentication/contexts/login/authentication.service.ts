@@ -1,4 +1,4 @@
-import { Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { sign } from 'jsonwebtoken';
 
 import { ENCRYPT_PROVIDER } from '@config/constants/providers.constants';
@@ -23,13 +23,13 @@ export class AuthenticationService {
     const user = await this.userRepository.findByEmail(email);
 
     if (!user) {
-      throw new NotFoundException('user-not-found');
+      throw new UnauthorizedException('invalid-credentials');
     }
 
     const passwordMatched = await this.encryptProvider.compareHash(password, user?.password);
 
     if (!passwordMatched) {
-      throw new UnauthorizedException('invalid-password');
+      throw new UnauthorizedException('invalid-credentials');
     }
     const token = sign({}, env().jwt.token, {
       subject: user.id,
